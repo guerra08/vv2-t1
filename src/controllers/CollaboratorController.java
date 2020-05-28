@@ -2,7 +2,6 @@ package controllers;
 
 import database.Data;
 import models.Collaborator;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -12,10 +11,12 @@ public class CollaboratorController {
         Data.initCollaborators();
     }
 
-    public void createCollaborator(Collaborator c){
-        if(c != null){
-            Data.collaborators.add(c);
-            System.out.printf("%s has been created!\n", c.toString());
+    public void createCollaborator(Collaborator... cols){
+        if(cols != null){
+            for(Collaborator c : cols){
+                Data.collaborators.add(c);
+                System.out.printf("%s has been created!\n", c.toString());
+            }
         }
     }
 
