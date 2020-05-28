@@ -2,7 +2,7 @@ package models;
 
 import java.util.regex.Pattern;
 
-public class Colaborator {
+public class Collaborator {
 
     private String code;
     private String fullName;
@@ -17,7 +17,7 @@ public class Colaborator {
      * @param e E-mail
      * @throws IllegalArgumentException Invalid e-mail
      */
-    public Colaborator(String c, String fName, String e) throws IllegalArgumentException {
+    public Collaborator(String c, String fName, String e) throws IllegalArgumentException {
         if(isEmailValid(e)){
             this.fullName = fName;
             this.code = c;
@@ -61,6 +61,11 @@ public class Colaborator {
      */
     private boolean isEmailValid(String email){
         return patt.matcher(email).matches();
+    }
+
+    @Override
+    public String toString(){
+        return String.format("Colaborator - Code: %s - Full name: %s - E-mail: %s", this.code, this.fullName, this.email);
     }
 
 }
