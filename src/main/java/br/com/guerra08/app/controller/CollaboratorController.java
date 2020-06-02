@@ -1,7 +1,7 @@
-package controller;
+package br.com.guerra08.app.controller;
 
-import database.Data;
-import model.Collaborator;
+import br.com.guerra08.app.database.Data;
+import br.com.guerra08.app.model.Collaborator;
 import java.util.List;
 import java.util.Optional;
 

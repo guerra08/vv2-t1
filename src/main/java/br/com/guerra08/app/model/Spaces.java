@@ -1,6 +1,6 @@
-package model;
+package br.com.guerra08.app.model;
 
-import constant.CSpaces;
+import br.com.guerra08.app.constant.CSpaces;
 
 public class Spaces extends Resource{
 

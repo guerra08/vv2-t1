@@ -1,9 +1,10 @@
-package database;
+package br.com.guerra08.app.database;
 
-import model.Collaborator;
-import model.Furniture;
-import model.Reservation;
-import model.Resource;
+import br.com.guerra08.app.model.Resource;
+import br.com.guerra08.app.model.Collaborator;
+import br.com.guerra08.app.model.Furniture;
+import br.com.guerra08.app.model.Reservation;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -1,5 +1,7 @@
-import controller.CollaboratorController;
-import model.Collaborator;
+package br.com.guerra08.app;
+
+import br.com.guerra08.app.controller.CollaboratorController;
+import br.com.guerra08.app.model.Collaborator;
 
 public class App {
 

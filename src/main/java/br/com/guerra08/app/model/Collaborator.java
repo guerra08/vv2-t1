@@ -1,4 +1,4 @@
-package model;
+package br.com.guerra08.app.model;
 
 import java.util.regex.Pattern;
 

@@ -1,6 +1,6 @@
-package controller;
+package br.com.guerra08.app.controller;
 
-import model.Collaborator;
+import br.com.guerra08.app.model.Collaborator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
