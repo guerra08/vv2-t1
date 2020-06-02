@@ -1,9 +1,9 @@
 package database;
 
-import models.Collaborator;
-import models.Furniture;
-import models.Reservation;
-import models.Resource;
+import model.Collaborator;
+import model.Furniture;
+import model.Reservation;
+import model.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

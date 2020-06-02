@@ -1,7 +1,7 @@
-package controllers;
+package controller;
 
 import database.Data;
-import models.Collaborator;
+import model.Collaborator;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,34 +11,41 @@ public class CollaboratorController {
         Data.initCollaborators();
     }
 
-    public void createCollaborator(Collaborator... cols){
+    public boolean createCollaborator(Collaborator... cols){
         if(cols != null){
+            boolean flag = false;
             for(Collaborator c : cols){
-                Data.collaborators.add(c);
+                flag = Data.collaborators.add(c);
                 System.out.printf("%s has been created!\n", c.toString());
             }
+            return flag;
         }
+        return false;
     }
 
-    public void deleteCollaborator(Collaborator c){
+    public boolean deleteCollaborator(Collaborator c){
         if(c != null){
-            Data.collaborators.removeIf(n -> n.getCode().equals(c.getCode()));
+            return Data.collaborators.removeIf(n -> n.getCode().equals(c.getCode()));
         }
+        return false;
     }
 
-    public void deleteCollaborator(String code){
+    public boolean deleteCollaborator(String code){
         if(code != null){
-            Data.collaborators.removeIf(n -> n.getCode().equals(code));
+            return Data.collaborators.removeIf(n -> n.getCode().equals(code));
         }
+        return false;
     }
 
-    public void updateCollaborator(Collaborator c){
+    public boolean updateCollaborator(Collaborator c){
         if(c != null){
             Data.collaborators.stream().filter(e -> e.getCode().equals(c.getCode())).forEach(i -> {
                 i.setEmail(c.getEmail());
                 i.setFullName(c.getFullName());
             });
+            return true;
         }
+        return false;
     }
 
     public List<Collaborator> getCollaborators(){

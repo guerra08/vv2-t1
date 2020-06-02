@@ -1,5 +1,5 @@
-import controllers.CollaboratorController;
-import models.Collaborator;
+import controller.CollaboratorController;
+import model.Collaborator;
 
 public class App {
 

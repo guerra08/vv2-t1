@@ -1,6 +1,4 @@
-package models;
-
-import java.util.UUID;
+package model;
 
 public abstract class Resource {
 

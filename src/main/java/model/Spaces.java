@@ -1,6 +1,6 @@
-package models;
+package model;
 
-import constants.CSpaces;
+import constant.CSpaces;
 
 public class Spaces extends Resource{
 

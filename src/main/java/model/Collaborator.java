@@ -1,4 +1,4 @@
-package models;
+package model;
 
 import java.util.regex.Pattern;
 
@@ -12,16 +12,16 @@ public class Collaborator {
 
     /**
      *
-     * @param c Code
+     * @param code Code
      * @param fName Full name
-     * @param e E-mail
+     * @param email E-mail
      * @throws IllegalArgumentException Invalid e-mail
      */
-    public Collaborator(String c, String fName, String e) throws IllegalArgumentException {
-        if(isEmailValid(e)){
+    public Collaborator(String code, String fName, String email) throws IllegalArgumentException {
+        if(isEmailValid(email)){
             this.fullName = fName;
-            this.code = c;
-            this.email = e;
+            this.code = code;
+            this.email = email;
         }
         else{
             throw new IllegalArgumentException("The email is not correct.");
