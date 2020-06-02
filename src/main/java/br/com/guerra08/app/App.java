@@ -1,14 +1,25 @@
 package br.com.guerra08.app;
 
-import br.com.guerra08.app.controller.CollaboratorController;
-import br.com.guerra08.app.model.Collaborator;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
-public class App {
+public class App extends Application {
+
+    @Override
+    public void start(Stage stage) {
+        String javaVersion = System.getProperty("java.version");
+        String javafxVersion = System.getProperty("javafx.version");
+        Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
+        Scene scene = new Scene(new StackPane(l), 640, 480);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     public static void main(String[] args) {
-        CollaboratorController cc = new CollaboratorController();
-        cc.createCollaborator((new Collaborator("9988", "James Silva", "jamess@gmail.com")));
-        System.out.println(cc.getCollaborator("12345"));
+        launch();
     }
 
 }
