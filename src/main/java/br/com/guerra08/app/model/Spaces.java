@@ -1,6 +1,6 @@
-package models;
+package br.com.guerra08.app.model;
 
-import constants.CSpaces;
+import br.com.guerra08.app.constant.CSpaces;
 
 public class Spaces extends Resource{
 
@@ -9,13 +9,14 @@ public class Spaces extends Resource{
 
     /**
      * Constructor for Space
+     * @param id Resource id
      * @param name Name
      * @param type Space type (room, venue...)
      * @param sqm Size in m²
      * @param cap Capacity of the space
      */
-    public Spaces(String name, String type, double sqm, int cap) {
-        super(name, (sqm * CSpaces.PRICE_PER_SQUARE) + (cap * CSpaces.PRICE_PER_SEAT), type);
+    public Spaces(String id, String name, String type, double sqm, int cap) {
+        super(id, name, (sqm * CSpaces.PRICE_PER_SQUARE) + (cap * CSpaces.PRICE_PER_SEAT), type);
         this.squareMeters = sqm;
         this.capacity = cap;
     }
@@ -27,4 +28,8 @@ public class Spaces extends Resource{
     public int getCapacity() { return capacity; }
 
     public void setCapacity(int capacity) { this.capacity = capacity; }
+
+    public String toString(){
+        return super.toString().concat(String.format(" - Capacity: %d - M²: %f", this.capacity, this.squareMeters));
+    }
 }

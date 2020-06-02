@@ -1,4 +1,4 @@
-package constants;
+package br.com.guerra08.app.constant;
 
 public class CSpaces {
 
