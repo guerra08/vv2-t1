@@ -12,7 +12,7 @@ class CollaboratorControllerTest {
 
     @BeforeAll
     static void checkInit(){
-        assertTrue(cc.getCollaborators().size() > 0);
+        assertTrue(cc.getCollaborators().size() >= 5);
     }
 
     @Test
