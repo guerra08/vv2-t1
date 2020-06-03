@@ -4,7 +4,6 @@ import br.com.guerra08.app.database.Data;
 import br.com.guerra08.app.model.Resource;
 
 import java.util.List;
-import java.util.Optional;
 
 public class ResourceController {
 
