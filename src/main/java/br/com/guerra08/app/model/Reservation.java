@@ -72,6 +72,6 @@ public class Reservation {
    }
 
    public double getTotalCost(){
-      return Period.between(start, end).getDays() * resource.getUnitCost();
+      return (Period.between(start, end).getDays() + 1) * resource.getUnitCost();
    }
 }

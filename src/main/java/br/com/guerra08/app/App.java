@@ -19,7 +19,9 @@ public class App {
         reservationController.createReservation(collaboratorController.getCollaborator("54321"), resourceController.getResource("2"), LocalDate.of(2020, 5, 12), LocalDate.of(2020, 5, 15));
         reservationController.createReservation(collaboratorController.getCollaborator("54321"), resourceController.getResource("3"), LocalDate.of(2020, 5, 16), LocalDate.of(2020, 5, 20));
 
-        reservationController.listCollaboratorOldReservations(collaboratorController.getCollaborator("54321"));
+        System.out.println(reservationController.listCollaboratorOldReservations(collaboratorController.getCollaborator("54321")));
+        System.out.println(reservationController.listCollaboratorsTotalValue() + "\n ");
+        System.out.println(reservationController.listResourceTotalValue());
     }
 
 }
