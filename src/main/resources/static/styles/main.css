@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+h1{
+    text-align: center;
+}
+
+.p-title{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.middle-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.index-options{
+    display: flex;
+    flex-direction: column;
+}

@@ -2,8 +2,11 @@ package br.com.guerra08.app.controller;
 
 import br.com.guerra08.app.database.Data;
 import br.com.guerra08.app.model.Collaborator;
-import java.util.List;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
+@Controller
 public class CollaboratorController {
 
     public CollaboratorController(){
@@ -47,8 +50,10 @@ public class CollaboratorController {
         return false;
     }
 
-    public List<Collaborator> getCollaborators(){
-        return Data.collaborators;
+    @GetMapping("/collaborators")
+    public String getCollaborators(Model m){
+        m.addAttribute("collaborators", Data.collaborators);
+        return "collaborators";
     }
 
 

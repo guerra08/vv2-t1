@@ -65,7 +65,7 @@ public class Collaborator {
 
     @Override
     public String toString(){
-        return String.format("Colaborator - Code: %s - Full name: %s - E-mail: %s", this.code, this.fullName, this.email);
+        return String.format("Código: %s - Nome completo: %s - E-mail: %s", this.code, this.fullName, this.email);
     }
 
 }

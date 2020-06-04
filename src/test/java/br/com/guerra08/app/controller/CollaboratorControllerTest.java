@@ -1,5 +1,6 @@
 package br.com.guerra08.app.controller;
 
+import br.com.guerra08.app.database.Data;
 import br.com.guerra08.app.model.Collaborator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ class CollaboratorControllerTest {
 
     @BeforeAll
     static void checkInit(){
-        assertTrue(cc.getCollaborators().size() >= 5);
+        assertTrue(Data.collaborators.size() >= 5);
     }
 
     @Test

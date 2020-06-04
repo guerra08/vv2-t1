@@ -2,17 +2,21 @@ package br.com.guerra08.app.controller;
 
 import br.com.guerra08.app.database.Data;
 import br.com.guerra08.app.model.Resource;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
+@Controller
 public class ResourceController {
 
     public ResourceController(){
         Data.initResources();
     }
 
-    public List<Resource> getResources(){
-        return Data.resources;
+    @GetMapping("/resources")
+    public String getResources(){
+        return "resources";
     }
 
     public Resource getResource(Resource r){
