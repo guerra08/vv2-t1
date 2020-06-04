@@ -47,4 +47,23 @@ public class ResourceController {
         return false;
     }
 
+    public String listResources() {
+        StringBuilder sb = new StringBuilder();
+        Data.resources.forEach( e -> {
+            sb.append(e).append("\n");
+        });
+        return sb.toString();
+    }
+
+    public String listResourcesByType(String type) {
+        StringBuilder sb = new StringBuilder();
+        Data.resources.forEach(e -> {
+            if(e.getClass().getSimpleName().equals(type)){
+                sb.append(e).append("\n");
+            }
+        });
+
+        return sb.toString();
+    }
+
 }

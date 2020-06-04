@@ -51,6 +51,7 @@ public class CollaboratorController {
         return Data.collaborators;
     }
 
+
     public Collaborator getCollaborator(String code){
         if(code != null){
             return Data.collaborators.stream().filter(e -> e.getCode().equals(code)).findFirst().orElse(null);
@@ -63,6 +64,14 @@ public class CollaboratorController {
             return Data.collaborators.stream().filter(e -> e.getCode().equals(c.getCode())).findFirst().orElse(null);
         }
         return null;
+    }
+
+    public String listCollaborators() {
+        StringBuilder sb = new StringBuilder();
+        Data.collaborators.forEach( e -> {
+            sb.append(e).append("\n");
+        });
+        return sb.toString();
     }
 
 }

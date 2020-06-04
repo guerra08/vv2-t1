@@ -88,4 +88,14 @@ public class ReservationController {
         return sb.toString();
     }
 
+    public String listReservationsWithDate(LocalDate start, LocalDate end){
+        StringBuilder sb = new StringBuilder();
+        Data.reservations.forEach(res -> {
+            if(!res.getStart().isBefore(start) && !res.getEnd().isAfter(end)){
+                sb.append(res).append("\n");
+            }
+        });
+        return sb.toString();
+    }
+
 }
