@@ -37,4 +37,28 @@ public class ReservationController {
         return occ > 0;
     }
 
+    public void listAllReservations(){
+        System.out.println();
+        for (int i = 0; i < Data.reservations.size() ; i++) {
+            System.out.println(Data.reservations.get(i));
+        }
+    }
+
+    public void listCollaboratorOldReservations(Collaborator c){
+        LocalDate date = LocalDate.now();
+        System.out.println("Collaborator: " + c.getCode());
+        System.out.println("Old Reservations: ");
+        for (int i = 0; i < Data.reservations.size() ; i++) {
+            if(Data.reservations.get(i).getStart().isBefore(date) && Data.reservations.get(i).getCollaboratorCode().equals(c.getCode())){
+                System.out.println(Data.reservations.get(i));
+            }
+        }
+    }
+
+    public void listCollaboratorsCosts(){
+        for (int i = 0; i < Data.reservations.size(); i++) {
+
+        }
+    }
+
 }

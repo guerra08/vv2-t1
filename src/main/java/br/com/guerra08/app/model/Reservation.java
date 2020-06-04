@@ -33,11 +33,15 @@ public class Reservation {
       }
    }
 
-   public Collaborator getColabortatorCode() {
+   public String getCollaboratorCode(){
+      return collaborator.getCode();
+   }
+
+   public Collaborator getCollaborator() {
       return collaborator;
    }
 
-   public void setColabortatorCode(Collaborator collaborator) {
+   public void setCollaborator(Collaborator collaborator) {
       this.collaborator = collaborator;
    }
 
