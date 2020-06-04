@@ -33,11 +33,15 @@ public class Reservation {
       }
    }
 
-   public Collaborator getColabortatorCode() {
+   public String getCollaboratorCode(){
+      return collaborator.getCode();
+   }
+
+   public Collaborator getCollaborator() {
       return collaborator;
    }
 
-   public void setColabortatorCode(Collaborator collaborator) {
+   public void setCollaborator(Collaborator collaborator) {
       this.collaborator = collaborator;
    }
 
@@ -68,6 +72,6 @@ public class Reservation {
    }
 
    public double getTotalCost(){
-      return Period.between(start, end).getDays() * resource.getUnitCost();
+      return (Period.between(start, end).getDays() + 1) * resource.getUnitCost();
    }
 }

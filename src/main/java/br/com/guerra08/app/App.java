@@ -1,25 +1,27 @@
 package br.com.guerra08.app;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import br.com.guerra08.app.controller.CollaboratorController;
+import br.com.guerra08.app.controller.ReservationController;
+import br.com.guerra08.app.controller.ResourceController;
 
-public class App extends Application {
+import java.time.LocalDate;
 
-    @Override
-    public void start(Stage stage) {
-        String javaVersion = System.getProperty("java.version");
-        String javafxVersion = System.getProperty("javafx.version");
-        Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
-        Scene scene = new Scene(new StackPane(l), 640, 480);
-        stage.setScene(scene);
-        stage.show();
-    }
+public class App {
 
     public static void main(String[] args) {
-        launch();
+        CollaboratorController collaboratorController = new CollaboratorController();
+        ResourceController resourceController = new ResourceController();
+        ReservationController reservationController = new ReservationController();
+
+        System.out.println(reservationController.getReservations().toString());
+
+        reservationController.createReservation(collaboratorController.getCollaborator("54321"), resourceController.getResource("1"), LocalDate.of(2020, 6, 12), LocalDate.of(2020, 6, 15));
+        reservationController.createReservation(collaboratorController.getCollaborator("54321"), resourceController.getResource("2"), LocalDate.of(2020, 5, 12), LocalDate.of(2020, 5, 15));
+        reservationController.createReservation(collaboratorController.getCollaborator("54321"), resourceController.getResource("3"), LocalDate.of(2020, 5, 16), LocalDate.of(2020, 5, 20));
+
+        System.out.println(reservationController.listCollaboratorOldReservations(collaboratorController.getCollaborator("54321")));
+        System.out.println(reservationController.listCollaboratorsTotalValue() + "\n ");
+        System.out.println(reservationController.listResourceTotalValue());
     }
 
 }

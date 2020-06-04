@@ -3,7 +3,6 @@ package br.com.guerra08.app.controller;
 import br.com.guerra08.app.database.Data;
 import br.com.guerra08.app.model.Collaborator;
 import java.util.List;
-import java.util.Optional;
 
 public class CollaboratorController {
 
@@ -52,16 +51,16 @@ public class CollaboratorController {
         return Data.collaborators;
     }
 
-    public Optional<Collaborator> getCollaborator(String code){
+    public Collaborator getCollaborator(String code){
         if(code != null){
-            return Data.collaborators.stream().filter(e -> e.getCode().equals(code)).findFirst();
+            return Data.collaborators.stream().filter(e -> e.getCode().equals(code)).findFirst().orElse(null);
         }
         return null;
     }
 
-    public Optional<Collaborator> getCollaborator(Collaborator c){
+    public Collaborator getCollaborator(Collaborator c){
         if(c != null){
-            return Data.collaborators.stream().filter(e -> e.getCode().equals(c.getCode())).findFirst();
+            return Data.collaborators.stream().filter(e -> e.getCode().equals(c.getCode())).findFirst().orElse(null);
         }
         return null;
     }
