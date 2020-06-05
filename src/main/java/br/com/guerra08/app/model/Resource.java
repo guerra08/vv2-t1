@@ -47,9 +47,4 @@ public abstract class Resource {
     public String getType() { return type; }
 
     public void setType(String type) { this.type = type; }
-
-    @Override
-    public String toString(){
-        return String.format("Resource: %s -  Id: %s - Name: %s - Unit cost: %f - Type: %s", this.getClass().getSimpleName(), this.id, this.name, this.unitCost, this.type);
-    }
 }

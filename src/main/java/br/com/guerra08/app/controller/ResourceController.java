@@ -3,9 +3,12 @@ package br.com.guerra08.app.controller;
 import br.com.guerra08.app.database.Data;
 import br.com.guerra08.app.model.Resource;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ResourceController {
@@ -15,7 +18,13 @@ public class ResourceController {
     }
 
     @GetMapping("/resources")
-    public String getResources(){
+    public String getResources(@RequestParam(required = false) String type, Model model){
+        if(type != null && !(type = type.trim()).equals("")){
+            model.addAttribute("resources", retrieveResourcesByType(type));
+        }
+        else{
+            model.addAttribute("resources", Data.resources);
+        }
         return "resources";
     }
 
@@ -27,47 +36,7 @@ public class ResourceController {
         return Data.resources.stream().filter(e -> e.getId().equals(id)).findFirst().orElse(null);
     }
 
-    public boolean createResource(Resource... res){
-        if(res != null){
-            boolean flag = false;
-            for(Resource r : res){
-                flag = Data.resources.add(r);
-                System.out.printf("%s has been created!\n", r.toString());
-            }
-            return flag;
-        }
-        return false;
+    private List<Resource> retrieveResourcesByType(String type) {
+        return Data.resources.stream().filter(e -> e.getClass().getSimpleName().toLowerCase().equals(type.toLowerCase())).collect(Collectors.toList());
     }
-
-    public boolean updateResource(Resource r){
-        if(r != null){
-            for (int i = 0; i < Data.resources.size(); i++) {
-                if(Data.resources.get(i).getId().equals(r.getId())){
-                    Data.resources.set(i, r);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public String listResources() {
-        StringBuilder sb = new StringBuilder();
-        Data.resources.forEach( e -> {
-            sb.append(e).append("\n");
-        });
-        return sb.toString();
-    }
-
-    public String listResourcesByType(String type) {
-        StringBuilder sb = new StringBuilder();
-        Data.resources.forEach(e -> {
-            if(e.getClass().getSimpleName().equals(type)){
-                sb.append(e).append("\n");
-            }
-        });
-
-        return sb.toString();
-    }
-
 }

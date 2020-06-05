@@ -12,4 +12,9 @@ public class MobileEquip extends Resource{
     public MobileEquip(String id, String name, double unitCost, String type) {
         super(id, name, unitCost, type);
     }
+
+    @Override
+    public String toString(){
+        return String.format("Id: %s - Nome: %s - Custo diário: %f - Tipo: %s", this.getId(), this.getName(), this.getUnitCost(), "Equipamento móvel");
+    }
 }

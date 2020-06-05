@@ -29,7 +29,8 @@ public class Spaces extends Resource{
 
     public void setCapacity(int capacity) { this.capacity = capacity; }
 
+    @Override
     public String toString(){
-        return super.toString().concat(String.format(" - Capacity: %d - M²: %f", this.capacity, this.squareMeters));
+        return String.format("Id: %s - Nome: %s - Custo diário: %f - Tipo: %s - Capacidade: %d - M²: %f", this.getId(), this.getName(), this.getUnitCost(), "Espaço físico", this.capacity, this.squareMeters);
     }
 }

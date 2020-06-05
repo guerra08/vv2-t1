@@ -28,7 +28,7 @@ public class Data {
         Resource r3 = new MobileEquip("3", "Motorola G5", 25, "Smartphone");
         Resource r4 = new MobileEquip("4", "Laptop Dell", 40, "Computador");
         Resource r5 = new MobileEquip("5", "iPad", 40, "Tablet");
-        Resource r6 = new Spaces("5", "Auditório", "Sala", 15, 60);
+        Resource r6 = new Spaces("6", "Auditório", "Sala", 15, 60);
         resources.addAll(Arrays.asList(r1,r2,r3,r4,r5,r6));
     }
 
