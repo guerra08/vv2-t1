@@ -1,5 +1,7 @@
 package br.com.guerra08.app.model;
 
+import br.com.guerra08.app.helpers.Formatting;
+
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -11,8 +13,6 @@ public class Reservation {
    private Resource resource;
    private LocalDate start;
    private LocalDate end;
-
-   private final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
    /**
     * Constructor for Reservation
@@ -68,7 +68,7 @@ public class Reservation {
    @Override
    public String toString(){
       return String.format("Reservation - Collaborator: %s - Resource: %s (Name: %s) - Start: %s - End: %s - Total cost: %s",
-              this.collaborator.getCode(), this.resource.getId(), this.resource.getName(), this.start.toString(), this.end.toString(), nf.format(getTotalCost()));
+              this.collaborator.getCode(), this.resource.getId(), this.resource.getName(), this.start.toString(), this.end.toString(), Formatting.valueToCurrencyString(getTotalCost()));
    }
 
    public double getTotalCost(){

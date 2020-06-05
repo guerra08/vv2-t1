@@ -1,6 +1,7 @@
 package br.com.guerra08.app.model;
 
 import br.com.guerra08.app.constant.CSpaces;
+import br.com.guerra08.app.helpers.Formatting;
 
 public class Spaces extends Resource{
 
@@ -31,6 +32,6 @@ public class Spaces extends Resource{
 
     @Override
     public String toString(){
-        return String.format("Id: %s - Nome: %s - Custo diário: %f - Tipo: %s - Capacidade: %d - M²: %f", this.getId(), this.getName(), this.getUnitCost(), "Espaço físico", this.capacity, this.squareMeters);
+        return String.format("Id: %s - Nome: %s - Custo diário: %s - Tipo: %s - Capacidade: %d - M²: %f", this.getId(), this.getName(), Formatting.valueToCurrencyString(this.getUnitCost()), "Espaço físico", this.capacity, this.squareMeters);
     }
 }

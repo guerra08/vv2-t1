@@ -1,5 +1,7 @@
 package br.com.guerra08.app.model;
 
+import br.com.guerra08.app.helpers.Formatting;
+
 public class MobileEquip extends Resource{
 
     /**
@@ -15,6 +17,6 @@ public class MobileEquip extends Resource{
 
     @Override
     public String toString(){
-        return String.format("Id: %s - Nome: %s - Custo diário: %f - Tipo: %s", this.getId(), this.getName(), this.getUnitCost(), "Equipamento móvel");
+        return String.format("Id: %s - Nome: %s - Custo diário: %s - Tipo: %s", this.getId(), this.getName(), Formatting.valueToCurrencyString(this.getUnitCost()), "Equipamento móvel");
     }
 }
