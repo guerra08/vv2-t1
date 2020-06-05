@@ -3,9 +3,11 @@ package br.com.guerra08.app.model;
 import br.com.guerra08.app.constant.CSpaces;
 import br.com.guerra08.app.helpers.Formatting;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("3")
 public class Spaces extends Resource{
 
     protected Spaces(){}

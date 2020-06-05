@@ -7,5 +7,6 @@ import java.util.List;
 public interface IResourceService {
 
     List<Resource> findAll();
+    List<Resource> findAllByType(int type);
 
 }

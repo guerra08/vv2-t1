@@ -10,12 +10,20 @@ import java.util.List;
 @Service
 public class ResourceService implements IResourceService{
 
+    private final ResourceRepository repository;
+
     @Autowired
-    private ResourceRepository repository;
+    public ResourceService (ResourceRepository rr){
+        this.repository = rr;
+    }
 
     @Override
     public List<Resource> findAll() {
         return (List<Resource>) repository.findAll();
+    }
+
+    public List<Resource> findAllByType(int type){
+        return repository.findAllByType(type);
     }
 
 }

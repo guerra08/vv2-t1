@@ -2,9 +2,11 @@ package br.com.guerra08.app.model;
 
 import br.com.guerra08.app.helpers.Formatting;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("1")
 public class Furniture extends Resource{
 
     protected Furniture(){}

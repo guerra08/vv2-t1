@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Inheritance
 @Table(name = Resource.TABLE_NAME)
-@DiscriminatorColumn(name = Resource.DISCRIMINATOR_COLUMN)
+@DiscriminatorColumn(name = Resource.DISCRIMINATOR_COLUMN, discriminatorType = DiscriminatorType.INTEGER)
 public abstract class Resource {
 
     public static final String TABLE_NAME= "RESOURCES";
@@ -17,6 +17,8 @@ public abstract class Resource {
     private String name;
     private double unitCost;
     private String category;
+    @Column(name = Resource.DISCRIMINATOR_COLUMN, insertable = false, updatable = false)
+    private int type;
 
     protected Resource() {}
 
@@ -55,4 +57,8 @@ public abstract class Resource {
     public String getCategory(){ return category; }
 
     public void setCategory(String category) { this.category = category; }
+
+    public int getType() { return type; }
+
+    public void setType(int type) { this.type = type; }
 }
