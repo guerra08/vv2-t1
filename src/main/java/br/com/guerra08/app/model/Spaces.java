@@ -3,21 +3,25 @@ package br.com.guerra08.app.model;
 import br.com.guerra08.app.constant.CSpaces;
 import br.com.guerra08.app.helpers.Formatting;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Spaces extends Resource{
+
+    protected Spaces(){}
 
     private double squareMeters;
     private int capacity;
 
     /**
      * Constructor for Space
-     * @param id Resource id
      * @param name Name
-     * @param type Space type (room, venue...)
      * @param sqm Size in m²
      * @param cap Capacity of the space
+     * @param category The category
      */
-    public Spaces(String id, String name, String type, double sqm, int cap) {
-        super(id, name, (sqm * CSpaces.PRICE_PER_SQUARE) + (cap * CSpaces.PRICE_PER_SEAT), type);
+    public Spaces(String name, double sqm, int cap, String category) {
+        super(name, (sqm * CSpaces.PRICE_PER_SQUARE) + (cap * CSpaces.PRICE_PER_SEAT), category);
         this.squareMeters = sqm;
         this.capacity = cap;
     }

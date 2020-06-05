@@ -1,7 +1,7 @@
 package br.com.guerra08.app.controller;
 
-import br.com.guerra08.app.database.Data;
-import br.com.guerra08.app.model.Collaborator;
+import br.com.guerra08.app.repository.CollaboratorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,74 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class CollaboratorController {
 
-    public CollaboratorController(){
-        Data.initCollaborators();
-    }
+    private final CollaboratorRepository collaboratorRepository;
 
-    public boolean createCollaborator(Collaborator... cols){
-        if(cols != null){
-            boolean flag = false;
-            for(Collaborator c : cols){
-                flag = Data.collaborators.add(c);
-                System.out.printf("%s has been created!\n", c.toString());
-            }
-            return flag;
-        }
-        return false;
-    }
-
-    public boolean deleteCollaborator(Collaborator c){
-        if(c != null){
-            return Data.collaborators.removeIf(n -> n.getCode().equals(c.getCode()));
-        }
-        return false;
-    }
-
-    public boolean deleteCollaborator(String code){
-        if(code != null){
-            return Data.collaborators.removeIf(n -> n.getCode().equals(code));
-        }
-        return false;
-    }
-
-    public boolean updateCollaborator(Collaborator c){
-        if(c != null){
-            Data.collaborators.stream().filter(e -> e.getCode().equals(c.getCode())).forEach(i -> {
-                i.setEmail(c.getEmail());
-                i.setFullName(c.getFullName());
-            });
-            return true;
-        }
-        return false;
+    @Autowired
+    public CollaboratorController(CollaboratorRepository cr){
+        this.collaboratorRepository = cr;
     }
 
     @GetMapping("/collaborators")
     public String getCollaborators(Model m){
-        m.addAttribute("collaborators", Data.collaborators);
+        m.addAttribute("collaborators", collaboratorRepository.findAll());
         return "collaborators";
     }
-
-
-    public Collaborator getCollaborator(String code){
-        if(code != null){
-            return Data.collaborators.stream().filter(e -> e.getCode().equals(code)).findFirst().orElse(null);
-        }
-        return null;
-    }
-
-    public Collaborator getCollaborator(Collaborator c){
-        if(c != null){
-            return Data.collaborators.stream().filter(e -> e.getCode().equals(c.getCode())).findFirst().orElse(null);
-        }
-        return null;
-    }
-
-    public String listCollaborators() {
-        StringBuilder sb = new StringBuilder();
-        Data.collaborators.forEach( e -> {
-            sb.append(e).append("\n");
-        });
-        return sb.toString();
-    }
-
 }

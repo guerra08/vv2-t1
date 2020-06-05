@@ -1,14 +1,23 @@
 package br.com.guerra08.app.model;
 
-import java.util.regex.Pattern;
+import br.com.guerra08.app.helpers.Validator;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = Collaborator.TABLE_NAME)
 public class Collaborator {
 
+    public static final String TABLE_NAME= "COLLABORATORS";
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
     private String code;
     private String fullName;
     private String email;
 
-    private final Pattern patt = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)])");
+    protected Collaborator() {}
 
     /**
      *
@@ -18,7 +27,7 @@ public class Collaborator {
      * @throws IllegalArgumentException Invalid e-mail
      */
     public Collaborator(String code, String fName, String email) throws IllegalArgumentException {
-        if(isEmailValid(email)){
+        if(Validator.isEmailValid(email)){
             this.fullName = fName;
             this.code = code;
             this.email = email;
@@ -27,6 +36,10 @@ public class Collaborator {
             throw new IllegalArgumentException("The email is not correct.");
         }
     }
+
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
 
     public String getCode() {
         return code;
@@ -48,20 +61,7 @@ public class Collaborator {
         return email;
     }
 
-    public void setEmail(String email) {
-        if(isEmailValid(email)){
-            this.email = email;
-        }
-    }
-
-    /**
-     * Checks with regex if a given e-mail is valid.
-     * @param email E-mail address
-     * @return boolean
-     */
-    private boolean isEmailValid(String email){
-        return patt.matcher(email).matches();
-    }
+    public void setEmail(String email) { if(Validator.isEmailValid(email)) this.email = email; }
 
     @Override
     public String toString(){
