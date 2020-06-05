@@ -1,77 +1,87 @@
 package br.com.guerra08.app.model;
 
-import java.text.NumberFormat;
+import br.com.guerra08.app.helpers.Formatting;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Locale;
 
-public class Reservation {
+@Entity
+@Table(name = Reservation.TABLE_NAME)
+public class Reservation{
 
-   private Collaborator collaborator;
-   private Resource resource;
-   private LocalDate start;
-   private LocalDate end;
+    private final static String RESOURCE_REF = "resource_id";
+    private final static String COLLABORATOR_REF = "collaborator_id";
+    public final static String TABLE_NAME = "reservations";
 
-   private final NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name=Reservation.RESOURCE_REF)
+    private Resource resource;
+    @ManyToOne
+    @JoinColumn(name=Reservation.COLLABORATOR_REF)
+    private Collaborator collaborator;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-   /**
-    * Constructor for Reservation
-    * @param collaborator The collaborator making the reservation
-    * @param resource The resource being reserved
-    * @param start The start Date
-    * @param end The end Date
-    */
-   public Reservation(Collaborator collaborator, Resource resource, LocalDate start, LocalDate end) {
-      if(start.isBefore(end)){
-         this.collaborator = collaborator;
-         this.resource = resource;
-         this.start = start;
-         this.end = end;
-      }
-      else{
-         throw new IllegalArgumentException("Invalid dates");
-      }
-   }
+    protected Reservation(){}
 
-   public String getCollaboratorCode(){
-      return collaborator.getCode();
-   }
+    public Reservation(Resource resource, Collaborator collaborator, LocalDate startDate, LocalDate endDate) {
+        this.resource = resource;
+        this.collaborator = collaborator;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
-   public Collaborator getCollaborator() {
-      return collaborator;
-   }
+    public Long getId() {
+        return id;
+    }
 
-   public void setCollaborator(Collaborator collaborator) {
-      this.collaborator = collaborator;
-   }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-   public Resource getResource() {
-      return resource;
-   }
+    public Resource getResource() {
+        return resource;
+    }
 
-   public void setResource(Resource resource) {
-      this.resource = resource;
-   }
+    public void setResource(Resource resource) {
+        this.resource = resource;
+    }
 
-   public LocalDate getStart() {
-      return start;
-   }
+    public Collaborator getCollaborator() {
+        return collaborator;
+    }
 
-   public LocalDate getEnd() {
-      return end;
-   }
+    public void setCollaborator(Collaborator collaborator) {
+        this.collaborator = collaborator;
+    }
 
-   public boolean isFuture(){
-      return (LocalDate.now()).isBefore(start);
-   }
+    public LocalDate getStartDate() {
+        return startDate;
+    }
 
-   @Override
-   public String toString(){
-      return String.format("Reservation - Collaborator: %s - Resource: %s (Name: %s) - Start: %s - End: %s - Total cost: %s",
-              this.collaborator.getCode(), this.resource.getId(), this.resource.getName(), this.start.toString(), this.end.toString(), nf.format(getTotalCost()));
-   }
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
 
-   public double getTotalCost(){
-      return (Period.between(start, end).getDays() + 1) * resource.getUnitCost();
-   }
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public boolean isFuture(){
+        return (LocalDate.now()).isBefore(startDate);
+    }
+
+    public double getTotalCost(){ return Period.between(startDate, endDate).getDays() * resource.getUnitCost(); }
+
+    public String getStringStartDate() { return Formatting.localDateToString(startDate); }
+
+    public String getStringEndDate() { return Formatting.localDateToString(endDate); }
 }

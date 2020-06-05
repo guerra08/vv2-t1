@@ -1,69 +1,39 @@
 package br.com.guerra08.app.controller;
 
-import br.com.guerra08.app.database.Data;
-import br.com.guerra08.app.model.Resource;
+import br.com.guerra08.app.repository.ResourceRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-
+@Controller
 public class ResourceController {
 
-    public ResourceController(){
-        Data.initResources();
+    private final ResourceRepository resourceRepository;
+
+    @Autowired
+    public ResourceController(ResourceRepository rr){
+        this.resourceRepository = rr;
     }
 
-    public List<Resource> getResources(){
-        return Data.resources;
-    }
-
-    public Resource getResource(Resource r){
-        return Data.resources.stream().filter(e -> e.getId().equals(r.getId())).findFirst().orElse(null);
-    }
-
-    public Resource getResource(String id){
-        return Data.resources.stream().filter(e -> e.getId().equals(id)).findFirst().orElse(null);
-    }
-
-    public boolean createResource(Resource... res){
-        if(res != null){
-            boolean flag = false;
-            for(Resource r : res){
-                flag = Data.resources.add(r);
-                System.out.printf("%s has been created!\n", r.toString());
+    @GetMapping("/resources")
+    public String getResources(@RequestParam(required = false) Integer type, Model model){
+        try{
+            if (type != null) {
+                model.addAttribute("resources", resourceRepository.findAllByType(type));
+            } else {
+                model.addAttribute("resources", resourceRepository.findAll());
             }
-            return flag;
+        }catch (Exception e){
+            System.out.println(e);
         }
-        return false;
+        return "resources";
     }
 
-    public boolean updateResource(Resource r){
-        if(r != null){
-            for (int i = 0; i < Data.resources.size(); i++) {
-                if(Data.resources.get(i).getId().equals(r.getId())){
-                    Data.resources.set(i, r);
-                    return true;
-                }
-            }
-        }
-        return false;
+    @ExceptionHandler({ NumberFormatException.class})
+    public String handleFormatException() {
+        return "resources";
     }
-
-    public String listResources() {
-        StringBuilder sb = new StringBuilder();
-        Data.resources.forEach( e -> {
-            sb.append(e).append("\n");
-        });
-        return sb.toString();
-    }
-
-    public String listResourcesByType(String type) {
-        StringBuilder sb = new StringBuilder();
-        Data.resources.forEach(e -> {
-            if(e.getClass().getSimpleName().equals(type)){
-                sb.append(e).append("\n");
-            }
-        });
-
-        return sb.toString();
-    }
-
 }

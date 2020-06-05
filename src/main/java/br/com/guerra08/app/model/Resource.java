@@ -1,32 +1,42 @@
 package br.com.guerra08.app.model;
 
+import javax.persistence.*;
+
+@Entity
+@Inheritance
+@Table(name = Resource.TABLE_NAME)
+@DiscriminatorColumn(name = Resource.DISCRIMINATOR_COLUMN, discriminatorType = DiscriminatorType.INTEGER)
 public abstract class Resource {
 
-    private String id;
+    public static final String TABLE_NAME= "RESOURCES";
+    public static final String DISCRIMINATOR_COLUMN= "TYPE";
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private double unitCost;
-    private String type;
+    private String category;
+    @Column(name = Resource.DISCRIMINATOR_COLUMN, insertable = false, updatable = false)
+    private int type;
+
+    protected Resource() {}
 
     /**
      * Constructor for Resource
      * @param name Name of the resource
      * @param unitCost Unit cost (per day)
-     * @param type Type of the resource
+     * @param category Type of the resource
      */
-    public Resource(String id, String name, double unitCost, String type) {
-        this.id = id;
+    public Resource(String name, double unitCost, String category) {
         this.name = name;
         this.unitCost = unitCost;
-        this.type = type;
+        this.category = category;
     }
 
-    public String getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 
     public String getName() {
         return name;
@@ -44,12 +54,11 @@ public abstract class Resource {
         this.unitCost = unitCost;
     }
 
-    public String getType() { return type; }
+    public String getCategory(){ return category; }
 
-    public void setType(String type) { this.type = type; }
+    public void setCategory(String category) { this.category = category; }
 
-    @Override
-    public String toString(){
-        return String.format("Resource: %s -  Id: %s - Name: %s - Unit cost: %f - Type: %s", this.getClass().getSimpleName(), this.id, this.name, this.unitCost, this.type);
-    }
+    public int getType() { return type; }
+
+    public void setType(int type) { this.type = type; }
 }

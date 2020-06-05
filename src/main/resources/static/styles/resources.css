@@ -1,0 +1,42 @@
+body {
+    height: 100vh;
+
+}
+
+h1 {
+    margin-top: 4%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form{
+    margin-bottom: 4%;
+}
+
+.resourcesContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 5%;
+}
+
+.list {
+    overflow-y: auto;
+    height: 100%;
+    max-height: 600px;
+    padding: 10px;
+}
+
+.item {
+    width: 300px;
+    max-width: 350px;
+    border: 1px solid #dbe9f5;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px 0 rgba(31,70,88,.04);
+    padding: 10px;
+    margin-top: 2%;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
