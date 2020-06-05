@@ -1,7 +1,10 @@
 package br.com.guerra08.app.model;
 
+import br.com.guerra08.app.helpers.Formatting;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table(name = Reservation.TABLE_NAME)
@@ -76,4 +79,9 @@ public class Reservation{
         return (LocalDate.now()).isBefore(startDate);
     }
 
+    public double getTotalCost(){ return Period.between(startDate, endDate).getDays() * resource.getUnitCost(); }
+
+    public String getStringStartDate() { return Formatting.localDateToString(startDate); }
+
+    public String getStringEndDate() { return Formatting.localDateToString(endDate); }
 }
