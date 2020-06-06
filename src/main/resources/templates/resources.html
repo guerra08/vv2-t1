@@ -58,7 +58,9 @@
                 <tr th:each="resource: ${resources}">
                     <td th:text="${resource.getId()}"></td>
                     <td th:text="${resource.getName()}"></td>
-                    <td th:text="${resource.getType()}"></td>
+                    <td th:if="${resource.getType() == 1}" th:text="'Mobília'"></td>
+                    <td th:if="${resource.getType() == 2}" th:text="'Equipamento móvel'"></td>
+                    <td th:if="${resource.getType() == 3}" th:text="'Espaço físico'"></td>
                     <td th:text="${resource.getCategory()}"></td>
                     <td th:if="${resource.getType() == 3}" th:text="${'Capacidade: ' + resource.getCapacity() + ' M²: ' + resource.getSquareMeters()}"></td>
                     <td th:unless="${resource.getType() == 3}" th:text="'#'"></td>

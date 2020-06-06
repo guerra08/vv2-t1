@@ -61,7 +61,7 @@
                 <td th:text="${reservation.getStringEndDate()}"></td>
                 <td th:text="${reservation.getResource().getUnitCost()} + ' R$'"></td>
                 <td>
-                    <button type="submit" class="btn btn-danger">Deletar</button>
+                    <button th:if="${reservation.isFuture()}" type="submit" class="btn btn-danger">Deletar</button>
                 </td>
             </tr>
             </tbody>
