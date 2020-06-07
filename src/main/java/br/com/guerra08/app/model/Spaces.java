@@ -23,7 +23,7 @@ public class Spaces extends Resource{
      * @param category The category
      */
     public Spaces(String name, double sqm, int cap, String category) {
-        super(name, (sqm * CSpaces.PRICE_PER_SQUARE) + (cap * CSpaces.PRICE_PER_SEAT), category);
+        super(name, -1, category);
         this.squareMeters = sqm;
         this.capacity = cap;
     }
@@ -35,6 +35,11 @@ public class Spaces extends Resource{
     public int getCapacity() { return capacity; }
 
     public void setCapacity(int capacity) { this.capacity = capacity; }
+
+    @Override
+    public double getUnitCost(){
+        return (CSpaces.PRICE_PER_SEAT * capacity) + (CSpaces.PRICE_PER_SQUARE * squareMeters);
+    }
 
     @Override
     public String toString(){
