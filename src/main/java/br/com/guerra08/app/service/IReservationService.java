@@ -10,4 +10,6 @@ public interface IReservationService {
 
     List<Reservation> findAll();
 
+    boolean deleteReservation(Reservation r);
+
 }
