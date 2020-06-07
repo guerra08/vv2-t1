@@ -1,6 +1,7 @@
 package br.com.guerra08.app.controller;
 
 import br.com.guerra08.app.repository.ResourceRepository;
+import br.com.guerra08.app.service.IResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,20 +12,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class ResourceController {
 
-    private final ResourceRepository resourceRepository;
+    private final IResourceService resourceService;
 
     @Autowired
-    public ResourceController(ResourceRepository rr){
-        this.resourceRepository = rr;
+    public ResourceController(IResourceService rs){
+        this.resourceService = rs;
     }
 
     @GetMapping("/resources")
     public String getResources(@RequestParam(required = false) Integer type, Model model){
         try{
             if (type != null) {
-                model.addAttribute("resources", resourceRepository.findAllByType(type));
+                model.addAttribute("resources", resourceService.findAllByType(type));
             } else {
-                model.addAttribute("resources", resourceRepository.findAll());
+                model.addAttribute("resources", resourceService.findAll());
             }
         }catch (Exception e){
             System.out.println(e);

@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface ResourceRepository extends CrudRepository<Resource, Long> {
 
-    Resource findById(long id);
     List<Resource> findAllByType(Integer type);
 
 }
