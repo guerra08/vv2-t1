@@ -35,4 +35,12 @@ public class ReservationService implements IReservationService{
         return (List<Reservation>) repository.findAll();
     }
 
+    public boolean deleteReservation(Reservation r){
+        if(repository.existsById(r.getId())){
+            repository.deleteById(r.getId());
+            return true;
+        }
+        return false;
+    }
+
 }
