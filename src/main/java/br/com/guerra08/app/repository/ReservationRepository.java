@@ -11,6 +11,6 @@ public interface ReservationRepository extends CrudRepository<Reservation, Long>
 
     List<Reservation> findAllByResource(Resource r);
 
-    Integer countReservationsByEndDateIsAfterAndStartDateIsBefore(LocalDate start, LocalDate end);
+    Integer countReservationsByResourceAndEndDateIsAfterAndStartDateIsBefore(Resource r, LocalDate start, LocalDate end);
 
 }
