@@ -1,8 +1,10 @@
 package br.com.guerra08.app.model;
 
+import br.com.guerra08.app.helpers.Formatting;
 import br.com.guerra08.app.helpers.Validator;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = Collaborator.TABLE_NAME)
@@ -16,6 +18,8 @@ public class Collaborator {
     private String code;
     private String fullName;
     private String email;
+    @OneToMany(mappedBy = "collaborator", targetEntity = Reservation.class)
+    private List<Reservation> reservations;
 
     protected Collaborator() {}
 
@@ -62,6 +66,24 @@ public class Collaborator {
     }
 
     public void setEmail(String email) { if(Validator.isEmailValid(email)) this.email = email; }
+
+    public List<Reservation> getReservations() { return reservations; }
+
+    public Double getPastCostsFromReservations(){
+        return reservations.stream().filter(x -> !x.isFuture()).map(Reservation::getTotalCost).reduce(0.0, Double::sum);
+    }
+
+    public Double getFutureCostsFromReservations(){
+        return reservations.stream().filter(Reservation::isFuture).map(Reservation::getTotalCost).reduce(0.0, Double::sum);
+    }
+
+    public String pastCostsToString(){
+        return Formatting.valueToCurrencyString(getPastCostsFromReservations());
+    }
+
+    public String futureCostsToString(){
+        return Formatting.valueToCurrencyString(getFutureCostsFromReservations());
+    }
 
     @Override
     public String toString(){

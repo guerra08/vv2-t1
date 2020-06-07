@@ -12,16 +12,16 @@ public class Reservation{
 
     private final static String RESOURCE_REF = "resource_id";
     private final static String COLLABORATOR_REF = "collaborator_id";
-    public final static String TABLE_NAME = "reservations";
+    public final static String TABLE_NAME = "RESERVATIONS";
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name=Reservation.RESOURCE_REF)
+    @JoinColumn(name=Reservation.RESOURCE_REF, nullable = false)
     private Resource resource;
     @ManyToOne
-    @JoinColumn(name=Reservation.COLLABORATOR_REF)
+    @JoinColumn(name=Reservation.COLLABORATOR_REF, nullable = false)
     private Collaborator collaborator;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -80,6 +80,8 @@ public class Reservation{
     }
 
     public double getTotalCost(){ return Period.between(startDate, endDate).getDays() * resource.getUnitCost(); }
+
+    public String totalCostString(){ return Formatting.valueToCurrencyString(getTotalCost()); }
 
     public String getStringStartDate() { return Formatting.localDateToString(startDate); }
 

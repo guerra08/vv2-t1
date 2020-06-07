@@ -1,6 +1,9 @@
 package br.com.guerra08.app.model;
 
+import br.com.guerra08.app.helpers.Formatting;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Inheritance
@@ -19,6 +22,8 @@ public abstract class Resource {
     private String category;
     @Column(name = Resource.DISCRIMINATOR_COLUMN, insertable = false, updatable = false)
     private int type;
+    @OneToMany(mappedBy = "collaborator", targetEntity = Reservation.class)
+    private List<Reservation> reservations;
 
     protected Resource() {}
 
@@ -61,4 +66,20 @@ public abstract class Resource {
     public int getType() { return type; }
 
     public void setType(int type) { this.type = type; }
+
+    public Double getPastCostsFromReservations(){
+        return reservations.stream().filter(x -> !x.isFuture()).map(Reservation::getTotalCost).reduce(0.0, Double::sum);
+    }
+
+    public Double getFutureCostsFromReservations(){
+        return reservations.stream().filter(Reservation::isFuture).map(Reservation::getTotalCost).reduce(0.0, Double::sum);
+    }
+
+    public String pastCostsToString(){
+        return Formatting.valueToCurrencyString(getPastCostsFromReservations());
+    }
+
+    public String futureCostsToString(){
+        return Formatting.valueToCurrencyString(getFutureCostsFromReservations());
+    }
 }
