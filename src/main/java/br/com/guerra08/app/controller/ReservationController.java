@@ -15,10 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ReservationController {
@@ -49,13 +46,24 @@ public class ReservationController {
 
     @PostMapping("/create-reservation")
     public ResponseEntity<String> createReservation(@RequestParam("collaborator") Collaborator coll, @RequestParam("resource") Resource res,
-    @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate, Model m){
+    @RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate){
 
         Reservation r = new Reservation(res, coll, Formatting.stringToLocalDate(startDate), Formatting.stringToLocalDate(endDate));
         Integer code = reservationService.save(r);
         return (code == 400) ? ResponseEntity.badRequest().body("Datas inválidas.") :
         (code == 409) ? ResponseEntity.status(409).body("Recurso já reservado.") :
         (code == 201) ? ResponseEntity.ok("Reserva cadastrada com sucesso!") : ResponseEntity.badRequest().body("Não foi possível realizar a operação.");
+    }
+
+    @DeleteMapping("/delete-reservation/{id}")
+    public ResponseEntity<String> deleteReservation(@PathVariable("id") Reservation res){
+        if(res.isFuture()){
+            if(reservationService.deleteReservation(res)){
+                return ResponseEntity.ok("Deleted");
+            }
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.badRequest().body("Invalid reservation");
     }
 
 }
