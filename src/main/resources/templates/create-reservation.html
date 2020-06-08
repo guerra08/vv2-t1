@@ -71,7 +71,7 @@
                     <label for="collaborators-select">Selecione um colaborador</label>
                     <select name="collaborator" class="form-control" id="collaborators-select" required>
                         <option disabled selected value="">...</option>
-                        <option th:each="col: ${collaborators}" th:value="${col.getId()}" th:text="${col.getFullName() + ', código: ' + col.getCode()}" value=""></option>
+                        <option th:each="col: ${collaborators}" th:value="${col.getId()}" th:text="${col.getFullName() + ', código ' + col.getCode()}" value=""></option>
                     </select>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                     <label for="resource-select">Selecione um recurso</label>
                     <select name="resource" class="form-control" id="resource-select" required>
                         <option disabled selected value="">...</option>
-                        <option th:each="res: ${resources}" th:value="${res.getId()}" th:text="${res.getName()}" value=""></option>
+                        <option th:each="res: ${resources}" th:value="${res.getId()}" th:text="${res.getName()} + ', ' + ${res.unitCostToString()}" value=""></option>
                     </select>
                 </div>
             </div>

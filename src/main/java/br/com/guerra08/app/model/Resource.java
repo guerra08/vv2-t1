@@ -67,6 +67,10 @@ public abstract class Resource {
 
     public void setType(int type) { this.type = type; }
 
+    public String unitCostToString(){
+        return Formatting.valueToCurrencyString(getUnitCost());
+    }
+
     public Double getPastCostsFromReservations(){
         return reservations.stream().filter(x -> !x.isFuture()).map(Reservation::getTotalCost).reduce(0.0, Double::sum);
     }
