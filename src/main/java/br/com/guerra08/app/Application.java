@@ -1,10 +1,8 @@
 package br.com.guerra08.app;
 
-import br.com.guerra08.app.model.Collaborator;
-import br.com.guerra08.app.model.Furniture;
-import br.com.guerra08.app.model.MobileEquip;
-import br.com.guerra08.app.model.Spaces;
+import br.com.guerra08.app.model.*;
 import br.com.guerra08.app.repository.CollaboratorRepository;
+import br.com.guerra08.app.repository.ReservationRepository;
 import br.com.guerra08.app.repository.ResourceRepository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -33,10 +31,14 @@ public class Application {
             resourceRepository.saveAll(Arrays.asList(
                 new Furniture("Mesa", 15, "Mobília"),
                 new Furniture("Quadro", 17, "Mobília"),
+                new Furniture("Armário de cadernos", 20, "Armário"),
                 new MobileEquip("Motorola G5", 25, "Smartphone"),
                 new MobileEquip("Laptop Dell", 40, "Computador"),
                 new MobileEquip("iPad", 40, "Tablet"),
-                new Spaces("Auditório principal", 15, 60, "Auditório")
+                new MobileEquip("Desktop Lenovo", 60, "Computador"),
+                new Spaces("Auditório principal", 15, 70, "Auditório"),
+                new Spaces("Sala 20", 10, 30, "Sala"),
+                new Spaces("Área externa", 20, 100, "Área")
             ));
         };
     }
