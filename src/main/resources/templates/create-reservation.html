@@ -37,24 +37,27 @@
 
     <div th:insert="fragments/settings-modal"></div>
 
-    <div class="toast" id="toast-error" style="position: absolute; top: 0; right: 0;">
+    <div class="toast" id="toast-error-dates" style="position: absolute; top: 0; right: 0;">
         <div class="toast-header">
             <strong class="mr-auto text-danger">Reservas</strong>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
         </div>
         <div class="toast-body">
-            Não foi possível cadastrar a reserva.
+            Não foi possível cadastrar a reserva, verifique se as datas são válidas.
+        </div>
+    </div>
+
+    <div class="toast" id="toast-error-resource" style="position: absolute; top: 0; right: 0;">
+        <div class="toast-header">
+            <strong class="mr-auto text-danger">Reservas</strong>
+        </div>
+        <div class="toast-body">
+            Não foi possível cadastrar a reserva, recurso já reservado.
         </div>
     </div>
 
     <div class="toast" id="toast-success" style="position: absolute; top: 0; right: 0;">
         <div class="toast-header">
             <strong class="mr-auto text-success">Reservas</strong>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
         </div>
         <div class="toast-body">
             Reserva cadastrada com sucesso!
@@ -100,6 +103,9 @@
                 <button type="submit" class="btn btn-primary">Cadastrar</button>
             </div>
         </form>
+        <div class="row justify-content-md-center">
+            <p class="h6" id="total-value"></p>
+        </div>
     </div>
 
     <script>
@@ -118,8 +124,13 @@
             reservation["endDate"] = $("#end-date").val();
             $.post("/create-reservation", reservation).done(function (succ) {
                 $("#toast-success").toast('show')
-            }).fail(function () {
-                $("#toast-error").toast('show')
+            }).fail(function (err) {
+                if(err.status === 409){
+                    $("#toast-error-resource").toast('show')
+                }
+                if(err.status === 400){
+                    $("#toast-error-dates").toast('show')
+                }
             })
         })
     </script>
