@@ -4,10 +4,12 @@ import br.com.guerra08.app.model.Collaborator;
 import br.com.guerra08.app.model.Reservation;
 import br.com.guerra08.app.model.Resource;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Repository
 public interface ReservationRepository extends CrudRepository<Reservation, Long> {
 
     List<Reservation> findAllByResource(Resource r);

@@ -18,10 +18,10 @@ public class Reservation{
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name=Reservation.RESOURCE_REF, nullable = false)
+    @JoinColumn(name=Reservation.RESOURCE_REF)
     private Resource resource;
-    @ManyToOne
-    @JoinColumn(name=Reservation.COLLABORATOR_REF, nullable = false)
+    @ManyToOne()
+    @JoinColumn(name=Reservation.COLLABORATOR_REF)
     private Collaborator collaborator;
     private LocalDate startDate;
     private LocalDate endDate;
