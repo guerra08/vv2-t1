@@ -22,6 +22,14 @@ public class ReservationService implements IReservationService{
         if(r.getStartDate().isBefore(LocalDate.now()) || r.getEndDate().isBefore(LocalDate.now())){
             return 400;
         }
+        if(r.getEndDate().isBefore(r.getStartDate())){
+            return 400;
+        }
+        if(r.getResource().getType() == 1){
+            if(r.getStartDate().until(r.getEndDate()).getDays() < 4){
+                return 400;
+            }
+        }
         Integer count = repository.countReservationsByResourceAndEndDateIsAfterAndStartDateIsBefore(r.getResource(), r.getStartDate(), r.getEndDate());
         if(count > 0){
             return 409;
