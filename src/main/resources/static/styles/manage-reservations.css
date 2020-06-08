@@ -2,24 +2,6 @@ body {
     height: 100vh;
 }
 
-.list-group-item disabled {
-    display: flex;
-    align-items: center;
-}
-
-.list {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.listText {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.listText strong {
-    margin-bottom: 1.4%;
+#clean-end, #clean-start{
+    margin-right: 7px;
 }

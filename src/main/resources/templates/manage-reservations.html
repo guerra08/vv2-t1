@@ -70,7 +70,7 @@
         <div class="row justify-content-md-center" style="margin-bottom: 5%; margin-top: 4%">
             <h1>Gerenciar Reservas</h1>
         </div>
-        <div class="form-inline justify-content-center" id="date-controls">
+        <div class="form-inline d-flex align-items-baseline justify-content-center" id="date-controls">
             <label class="sr-only" for="start-date">Data inicial</label>
             <input type="date" class="form-control mb-2 mr-sm-2" id="start-date">
             <button type="submit" class="btn btn-secondary btn-sm" id="clean-start">
@@ -182,6 +182,21 @@
                 table.draw();
             });
         } );
+
+        function handleDelete(reservation){
+            $.ajax({
+                url: `delete-reservation/${reservation}`,
+                type: 'DELETE',
+                success: function(result) {
+                    const data_table = $('#reservationsTable').DataTable();
+                    $("#toast-success").toast('show')
+                    data_table.row($('#item_'+reservation)).remove().draw();
+                },
+                eror: function (error) {
+                    $("#toast-error").toast('show')
+                }
+            });
+        }
     </script>
 </body>
 </html>

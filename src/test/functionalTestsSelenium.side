@@ -7,35 +7,21 @@
     "id": "1ff25aee-11aa-485f-b573-6d3ba4b0f85d",
     "name": "assertCreateReservation",
     "commands": [{
-      "id": "1bf19d66-b9e7-492d-a672-30a2a13b51a2",
+      "id": "8ef8bdd9-aa7b-400b-abc4-a08c1dd5e834",
       "comment": "",
       "command": "open",
-      "target": "/",
+      "target": "/create-reservation",
       "targets": [],
       "value": ""
     }, {
-      "id": "afbf6663-3a64-4514-9602-1ade26821862",
+      "id": "9e910386-d104-44a7-bdb8-c4143425ae39",
       "comment": "",
       "command": "setWindowSize",
       "target": "1419x937",
       "targets": [],
       "value": ""
     }, {
-      "id": "c494f47c-8f13-4d86-bfa1-f1f77eef0234",
-      "comment": "",
-      "command": "click",
-      "target": "linkText=Cadastrar reserva",
-      "targets": [
-        ["linkText=Cadastrar reserva", "linkText"],
-        ["css=.flex-sm-fill:nth-child(3)", "css:finder"],
-        ["xpath=//a[contains(text(),'Cadastrar reserva')]", "xpath:link"],
-        ["xpath=//a[contains(@href, '/create-reservation')]", "xpath:href"],
-        ["xpath=//a[3]", "xpath:position"],
-        ["xpath=//a[contains(.,'Cadastrar reserva')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "2a979936-9b4f-4fca-ad75-f170c322f8e8",
+      "id": "92710243-ef6e-4320-b8e3-18d926e56aba",
       "comment": "",
       "command": "click",
       "target": "id=collaborators-select",
@@ -49,21 +35,21 @@
       ],
       "value": ""
     }, {
-      "id": "975b7af6-8076-47ca-a967-7f1a4eb1375b",
+      "id": "23cd02df-00da-4f64-9457-6384a576fc5d",
       "comment": "",
       "command": "select",
       "target": "id=collaborators-select",
       "targets": [],
-      "value": "label=Marcos Júnior, código: 54321"
+      "value": "label=João da Silva, código 12345"
     }, {
-      "id": "99a36619-21a6-431f-b028-7c644c77b7f8",
+      "id": "b4e4bb9a-16e8-4d35-bceb-9d2fa3cbdd72",
       "comment": "",
       "command": "assertSelectedLabel",
       "target": "id=collaborators-select",
       "targets": [],
-      "value": "Marcos Júnior, código: 54321"
+      "value": "João da Silva, código 12345"
     }, {
-      "id": "6f2b1cae-6b30-4522-8015-03fee5aaab99",
+      "id": "b4883c7d-fe5a-4171-8953-d3cbf9ed8f95",
       "comment": "",
       "command": "click",
       "target": "id=collaborators-select",
@@ -77,7 +63,7 @@
       ],
       "value": ""
     }, {
-      "id": "814be95e-52b2-42e1-87f1-77d12de840c8",
+      "id": "c1ef9225-b513-4a05-9b00-f3272630bf3d",
       "comment": "",
       "command": "click",
       "target": "id=resource-select",
@@ -91,21 +77,14 @@
       ],
       "value": ""
     }, {
-      "id": "8f930bab-77de-4407-aaee-d1c48afe9ccd",
+      "id": "8f75cf0b-6337-42d7-b85c-5225e9a12a9d",
       "comment": "",
       "command": "select",
       "target": "id=resource-select",
       "targets": [],
-      "value": "label=Quadro"
+      "value": "label=regexp:Quadro, R\\$\\s17,00"
     }, {
-      "id": "aebff24e-ec6f-4b10-8cc7-ff5b3a588106",
-      "comment": "",
-      "command": "assertSelectedLabel",
-      "target": "id=resource-select",
-      "targets": [],
-      "value": "Quadro"
-    }, {
-      "id": "ff2310e9-78ab-42dd-9758-a1af24d15bf0",
+      "id": "27ff17af-1a1b-4dc8-b921-dfb336bf9029",
       "comment": "",
       "command": "click",
       "target": "id=resource-select",
@@ -119,49 +98,7 @@
       ],
       "value": ""
     }, {
-      "id": "ed3068dc-2c64-4494-b8ee-53ef275648a3",
-      "comment": "",
-      "command": "click",
-      "target": "id=resource-select",
-      "targets": [
-        ["id=resource-select", "id"],
-        ["name=resource", "name"],
-        ["css=#resource-select", "css:finder"],
-        ["xpath=//select[@id='resource-select']", "xpath:attributes"],
-        ["xpath=//form[@id='reservation-form']/div[2]/div/select", "xpath:idRelative"],
-        ["xpath=//div[2]/div/select", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "d91fce23-587a-4648-b129-7b6c47e0a31b",
-      "comment": "",
-      "command": "select",
-      "target": "id=resource-select",
-      "targets": [],
-      "value": "label=Motorola G5"
-    }, {
-      "id": "bab1495a-02bb-42fb-9d5d-b92b3167a732",
-      "comment": "",
-      "command": "assertSelectedLabel",
-      "target": "id=resource-select",
-      "targets": [],
-      "value": "Motorola G5"
-    }, {
-      "id": "63e7a160-33d3-402f-89a5-854ef9429a45",
-      "comment": "",
-      "command": "click",
-      "target": "id=resource-select",
-      "targets": [
-        ["id=resource-select", "id"],
-        ["name=resource", "name"],
-        ["css=#resource-select", "css:finder"],
-        ["xpath=//select[@id='resource-select']", "xpath:attributes"],
-        ["xpath=//form[@id='reservation-form']/div[2]/div/select", "xpath:idRelative"],
-        ["xpath=//div[2]/div/select", "xpath:position"]
-      ],
-      "value": ""
-    }, {
-      "id": "ab97dd03-d9e9-4af9-bfdc-1993b12fb065",
+      "id": "d996128a-9bf0-449b-81a9-32e2598a5d2f",
       "comment": "",
       "command": "click",
       "target": "id=start-date",
@@ -175,7 +112,7 @@
       ],
       "value": ""
     }, {
-      "id": "2c544a5b-7f5b-49be-a776-a1d52f64c4dc",
+      "id": "a7140242-a9c8-4b09-9938-76fd2d909073",
       "comment": "",
       "command": "type",
       "target": "id=start-date",
@@ -187,9 +124,9 @@
         ["xpath=//form[@id='reservation-form']/div[3]/div/input", "xpath:idRelative"],
         ["xpath=//div[3]/div/input", "xpath:position"]
       ],
-      "value": "2020-07-01"
+      "value": "2020-06-21"
     }, {
-      "id": "73c89858-722f-4675-bdc2-e63d98a94f52",
+      "id": "932f505d-92b1-4f3a-afc1-1a0da3b661d1",
       "comment": "",
       "command": "click",
       "target": "id=end-date",
@@ -203,7 +140,7 @@
       ],
       "value": ""
     }, {
-      "id": "8eea9442-7fee-4927-91b1-02f687fab04d",
+      "id": "875ce205-c26c-4501-977f-31e4d2ccfc2c",
       "comment": "",
       "command": "type",
       "target": "id=end-date",
@@ -215,9 +152,9 @@
         ["xpath=//form[@id='reservation-form']/div[4]/div/input", "xpath:idRelative"],
         ["xpath=//div[4]/div/input", "xpath:position"]
       ],
-      "value": "2020-07-02"
+      "value": "2020-06-27"
     }, {
-      "id": "5d0f1dc8-d7d2-4f62-9691-5a6bb1339fcf",
+      "id": "513d309f-f91a-4fd8-a4fb-95abe4ada30c",
       "comment": "",
       "command": "click",
       "target": "css=.btn-primary",
@@ -228,6 +165,13 @@
         ["xpath=//div[5]/button", "xpath:position"],
         ["xpath=//button[contains(.,'Cadastrar')]", "xpath:innerText"]
       ],
+      "value": ""
+    }, {
+      "id": "b84165db-f5f7-4a86-916a-eaf3c1c8a4f7",
+      "comment": "",
+      "command": "close",
+      "target": "",
+      "targets": [],
       "value": ""
     }]
   }, {
@@ -450,14 +394,20 @@
       "id": "61e2f59f-a35b-48dd-a7ea-d0b00abaa9b8",
       "comment": "Validate if exists a button to delete a reservation",
       "command": "assertElementPresent",
-      "target": "css=.odd:nth-child(1) .btn",
-      "targets": [],
+      "target": "css=.btn-danger",
+      "targets": [
+        ["css=.btn-danger", "css:finder"],
+        ["xpath=(//button[@type='submit'])[4]", "xpath:attributes"],
+        ["xpath=//table[@id='reservationsTable']/tbody/tr[2]/td[7]/button", "xpath:idRelative"],
+        ["xpath=//td[7]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Deletar')]", "xpath:innerText"]
+      ],
       "value": ""
     }, {
       "id": "a97727ef-e28e-4fce-b637-80c299399064",
       "comment": "",
       "command": "click",
-      "target": "css=.odd:nth-child(1) .btn",
+      "target": "css=.btn-danger",
       "targets": [
         ["css=.odd:nth-child(1) .btn", "css:finder"],
         ["xpath=(//button[@type='submit'])[2]", "xpath:attributes"],
