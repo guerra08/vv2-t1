@@ -22,7 +22,7 @@ public abstract class Resource {
     private String category;
     @Column(name = Resource.DISCRIMINATOR_COLUMN, insertable = false, updatable = false)
     private int type;
-    @OneToMany(mappedBy = "collaborator", targetEntity = Reservation.class)
+    @OneToMany(mappedBy = "resource", targetEntity = Reservation.class)
     private List<Reservation> reservations;
 
     protected Resource() {}
