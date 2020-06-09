@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar reserva</title>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/styles/main.css}" />
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">VV - II</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/collaborators">Colaboradores <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/resources">Recursos </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/create-reservation">Cadastrar reserva <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/manage-reservations">Gerenciar reservas</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div th:insert="fragments/settings-modal"></div>
+
+    <div class="toast" id="toast-error-dates" style="position: absolute; top: 0; right: 0;">
+        <div class="toast-header">
+            <strong class="mr-auto text-danger">Reservas</strong>
+        </div>
+        <div class="toast-body">
+            Não foi possível cadastrar a reserva, verifique se as datas são válidas.
+        </div>
+    </div>
+
+    <div class="toast" id="toast-error-resource" style="position: absolute; top: 0; right: 0;">
+        <div class="toast-header">
+            <strong class="mr-auto text-danger">Reservas</strong>
+        </div>
+        <div class="toast-body">
+            Não foi possível cadastrar a reserva, recurso já reservado.
+        </div>
+    </div>
+
+    <div class="toast" id="toast-success" style="position: absolute; top: 0; right: 0;">
+        <div class="toast-header">
+            <strong class="mr-auto text-success">Reservas</strong>
+        </div>
+        <div class="toast-body">
+            Reserva cadastrada com sucesso!
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-md-center" style="margin-bottom: 5%; margin-top: 4%">
+            <h1>Cadastrar reserva</h1>
+        </div>
+        <form id="reservation-form">
+            <div class="form-group row justify-content-center">
+                <div class="col-sm-6">
+                    <label for="collaborators-select">Selecione um colaborador</label>
+                    <select name="collaborator" class="form-control" id="collaborators-select" required>
+                        <option disabled selected value="">...</option>
+                        <option th:each="col: ${collaborators}" th:value="${col.getId()}" th:text="${col.getFullName() + ', código ' + col.getCode()}" value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <div class="col-sm-6">
+                    <label for="resource-select">Selecione um recurso</label>
+                    <select name="resource" class="form-control" id="resource-select" required>
+                        <option disabled selected value="">...</option>
+                        <option th:each="res: ${resources}" th:value="${res.getId()}" th:text="${res.getName()} + ', ' + ${res.unitCostToString()}" value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <div class="col-sm-6">
+                    <label for="start-date">Data inicial</label>
+                    <input class="form-control" type="date" id="start-date" name="startDate" required>
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <div class="col-sm-6">
+                    <label for="end-date">Data final</label>
+                    <input class="form-control" type="date" id="end-date" name="endDate" required>
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>
+        </form>
+        <div class="row justify-content-md-center">
+            <p class="h6" id="total-value"></p>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".toast").toast({
+                delay: 3000
+            })
+        })
+
+        $("#reservation-form").submit(function (e) {
+            e.preventDefault();
+            let reservation = {};
+            reservation["collaborator"] = $("#collaborators-select").val();
+            reservation["resource"] = $("#resource-select").val();
+            reservation["startDate"] = $("#start-date").val();
+            reservation["endDate"] = $("#end-date").val();
+            $.post("/create-reservation", reservation).done(function (succ) {
+                $("#toast-success").toast('show')
+            }).fail(function (err) {
+                if(err.status === 409){
+                    $("#toast-error-resource").toast('show')
+                }
+                if(err.status === 400){
+                    $("#toast-error-dates").toast('show')
+                }
+            })
+        })
+    </script>
+</body>
+</html>

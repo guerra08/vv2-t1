@@ -1,14 +1,27 @@
 package br.com.guerra08.app.model;
 
-import java.util.regex.Pattern;
+import br.com.guerra08.app.helpers.Formatting;
+import br.com.guerra08.app.helpers.Validator;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = Collaborator.TABLE_NAME)
 public class Collaborator {
 
+    public static final String TABLE_NAME= "COLLABORATORS";
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
     private String code;
     private String fullName;
     private String email;
+    @OneToMany(mappedBy = "collaborator", targetEntity = Reservation.class)
+    private List<Reservation> reservations;
 
-    private final Pattern patt = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)])");
+    protected Collaborator() {}
 
     /**
      *
@@ -18,7 +31,7 @@ public class Collaborator {
      * @throws IllegalArgumentException Invalid e-mail
      */
     public Collaborator(String code, String fName, String email) throws IllegalArgumentException {
-        if(isEmailValid(email)){
+        if(Validator.isEmailValid(email)){
             this.fullName = fName;
             this.code = code;
             this.email = email;
@@ -27,6 +40,10 @@ public class Collaborator {
             throw new IllegalArgumentException("The email is not correct.");
         }
     }
+
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
 
     public String getCode() {
         return code;
@@ -48,24 +65,29 @@ public class Collaborator {
         return email;
     }
 
-    public void setEmail(String email) {
-        if(isEmailValid(email)){
-            this.email = email;
-        }
+    public void setEmail(String email) { if(Validator.isEmailValid(email)) this.email = email; }
+
+    public List<Reservation> getReservations() { return reservations; }
+
+    public Double getPastCostsFromReservations(){
+        return reservations.stream().filter(x -> !x.isFuture()).map(Reservation::getTotalCost).reduce(0.0, Double::sum);
     }
 
-    /**
-     * Checks with regex if a given e-mail is valid.
-     * @param email E-mail address
-     * @return boolean
-     */
-    private boolean isEmailValid(String email){
-        return patt.matcher(email).matches();
+    public Double getFutureCostsFromReservations(){
+        return reservations.stream().filter(Reservation::isFuture).map(Reservation::getTotalCost).reduce(0.0, Double::sum);
+    }
+
+    public String pastCostsToString(){
+        return Formatting.valueToCurrencyString(getPastCostsFromReservations());
+    }
+
+    public String futureCostsToString(){
+        return Formatting.valueToCurrencyString(getFutureCostsFromReservations());
     }
 
     @Override
     public String toString(){
-        return String.format("Colaborator - Code: %s - Full name: %s - E-mail: %s", this.code, this.fullName, this.email);
+        return String.format("Código: %s - Nome completo: %s - E-mail: %s", this.code, this.fullName, this.email);
     }
 
 }

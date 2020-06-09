@@ -1,0 +1,7 @@
+body {
+    height: 100vh;
+}
+
+#clean-end, #clean-start{
+    margin-right: 7px;
+}

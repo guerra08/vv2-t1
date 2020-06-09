@@ -1,22 +1,29 @@
 package br.com.guerra08.app.model;
 
 import br.com.guerra08.app.constant.CSpaces;
+import br.com.guerra08.app.helpers.Formatting;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("3")
 public class Spaces extends Resource{
+
+    protected Spaces(){}
 
     private double squareMeters;
     private int capacity;
 
     /**
      * Constructor for Space
-     * @param id Resource id
      * @param name Name
-     * @param type Space type (room, venue...)
      * @param sqm Size in m²
      * @param cap Capacity of the space
+     * @param category The category
      */
-    public Spaces(String id, String name, String type, double sqm, int cap) {
-        super(id, name, (sqm * CSpaces.PRICE_PER_SQUARE) + (cap * CSpaces.PRICE_PER_SEAT), type);
+    public Spaces(String name, double sqm, int cap, String category) {
+        super(name, -1, category);
         this.squareMeters = sqm;
         this.capacity = cap;
     }
@@ -29,7 +36,13 @@ public class Spaces extends Resource{
 
     public void setCapacity(int capacity) { this.capacity = capacity; }
 
+    @Override
+    public double getUnitCost(){
+        return (CSpaces.PRICE_PER_SEAT * capacity) + (CSpaces.PRICE_PER_SQUARE * squareMeters);
+    }
+
+    @Override
     public String toString(){
-        return super.toString().concat(String.format(" - Capacity: %d - M²: %f", this.capacity, this.squareMeters));
+        return String.format("Id: %s - Nome: %s - Custo diário: %s - Tipo: %s - Capacidade: %d - M²: %f", this.getId(), this.getName(), Formatting.valueToCurrencyString(this.getUnitCost()), "Espaço físico", this.capacity, this.squareMeters);
     }
 }

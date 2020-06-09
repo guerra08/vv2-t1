@@ -1,69 +1,24 @@
 package br.com.guerra08.app.controller;
 
-import br.com.guerra08.app.database.Data;
-import br.com.guerra08.app.model.Collaborator;
-import java.util.List;
-import java.util.Optional;
+import br.com.guerra08.app.service.ICollaboratorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
+@Controller
 public class CollaboratorController {
 
-    public CollaboratorController(){
-        Data.initCollaborators();
+    private final ICollaboratorService collaboratorService;
+
+    @Autowired
+    public CollaboratorController(ICollaboratorService cs){
+        this.collaboratorService = cs;
     }
 
-    public boolean createCollaborator(Collaborator... cols){
-        if(cols != null){
-            boolean flag = false;
-            for(Collaborator c : cols){
-                flag = Data.collaborators.add(c);
-                System.out.printf("%s has been created!\n", c.toString());
-            }
-            return flag;
-        }
-        return false;
+    @GetMapping("/collaborators")
+    public String getCollaborators(Model m){
+        m.addAttribute("collaborators", collaboratorService.findAll());
+        return "collaborators";
     }
-
-    public boolean deleteCollaborator(Collaborator c){
-        if(c != null){
-            return Data.collaborators.removeIf(n -> n.getCode().equals(c.getCode()));
-        }
-        return false;
-    }
-
-    public boolean deleteCollaborator(String code){
-        if(code != null){
-            return Data.collaborators.removeIf(n -> n.getCode().equals(code));
-        }
-        return false;
-    }
-
-    public boolean updateCollaborator(Collaborator c){
-        if(c != null){
-            Data.collaborators.stream().filter(e -> e.getCode().equals(c.getCode())).forEach(i -> {
-                i.setEmail(c.getEmail());
-                i.setFullName(c.getFullName());
-            });
-            return true;
-        }
-        return false;
-    }
-
-    public List<Collaborator> getCollaborators(){
-        return Data.collaborators;
-    }
-
-    public Optional<Collaborator> getCollaborator(String code){
-        if(code != null){
-            return Data.collaborators.stream().filter(e -> e.getCode().equals(code)).findFirst();
-        }
-        return null;
-    }
-
-    public Optional<Collaborator> getCollaborator(Collaborator c){
-        if(c != null){
-            return Data.collaborators.stream().filter(e -> e.getCode().equals(c.getCode())).findFirst();
-        }
-        return null;
-    }
-
 }
