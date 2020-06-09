@@ -53,6 +53,7 @@ public class ReservationController {
 
     @DeleteMapping("/delete-reservation/{id}")
     public ResponseEntity<String> deleteReservation(@PathVariable("id") Reservation res){
+        System.out.println(res);
         if(reservationService.deleteReservation(res)){
             return ResponseEntity.ok("Deleted");
         }

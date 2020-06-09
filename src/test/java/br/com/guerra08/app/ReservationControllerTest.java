@@ -20,6 +20,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
 @ExtendWith(SpringExtension.class)
 @WebMvcTest
 @AutoConfigureMockMvc
@@ -43,12 +45,12 @@ public class ReservationControllerTest {
 
     @Test
     public void testGetCreateReservationPage() throws Exception {
-        mockMvc.perform(get("/create-reservation")).andExpect(status().isOk());
+        mockMvc.perform(get("/create-reservation")).andExpect(status().isOk())
+                .andExpect(model().attribute("collaborators", instanceOf(List.class))).andExpect(model().attribute("resources", instanceOf(List.class)));
     }
 
     @Test
     public void testGetManageReservationsPage() throws Exception {
-        mockMvc.perform(get("/manage-reservations")).andExpect(status().isOk());
+        mockMvc.perform(get("/manage-reservations")).andExpect(status().isOk()).andExpect(model().attribute("reservations", instanceOf(List.class)));
     }
-
 }

@@ -20,6 +20,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
 @ExtendWith(SpringExtension.class)
 @WebMvcTest
 @AutoConfigureMockMvc
@@ -43,7 +45,7 @@ public class CollaboratorControllerTest {
 
     @Test
     public void testGetCollaborators() throws Exception {
-        mockMvc.perform(get("/resources")).andExpect(status().isOk());
+        mockMvc.perform(get("/collaborators")).andExpect(status().isOk()).andExpect(model().attribute("collaborators", instanceOf(List.class)));
     }
 
 }
