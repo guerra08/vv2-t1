@@ -45,8 +45,10 @@ public class ReservationService implements IReservationService{
 
     public boolean deleteReservation(Reservation r){
         if(repository.existsById(r.getId())){
-            repository.deleteById(r.getId());
-            return true;
+            if(r.isFuture()){
+                repository.deleteById(r.getId());
+                return true;
+            }
         }
         return false;
     }

@@ -19,8 +19,7 @@ public class Formatting {
 
     public static String localDateToString(LocalDate date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String formattedString = date.format(formatter);
-        return formattedString;
+        return date.format(formatter);
     }
 
 }

@@ -1,6 +1,5 @@
 package br.com.guerra08.app.controller;
 
-import br.com.guerra08.app.repository.ResourceRepository;
 import br.com.guerra08.app.service.IResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

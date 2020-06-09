@@ -71,4 +71,16 @@ public class ReservationServiceIntegrationTest {
         assertEquals(409, reservationService.save(toSave));
     }
 
+    @Test
+    public void testDeleteInvalidReservation(){
+        Reservation toDelete = reservationService.findAll().get(0);
+        assertFalse(reservationService.deleteReservation(toDelete));
+    }
+
+    @Test
+    public void testDeleteValidReservation(){
+        Reservation toDelete = reservationService.findAll().get(1);
+        assertTrue(reservationService.deleteReservation(toDelete));
+    }
+
 }

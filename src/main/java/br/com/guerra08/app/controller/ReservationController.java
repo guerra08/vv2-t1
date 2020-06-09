@@ -4,9 +4,6 @@ import br.com.guerra08.app.helpers.Formatting;
 import br.com.guerra08.app.model.Collaborator;
 import br.com.guerra08.app.model.Reservation;
 import br.com.guerra08.app.model.Resource;
-import br.com.guerra08.app.repository.CollaboratorRepository;
-import br.com.guerra08.app.repository.ReservationRepository;
-import br.com.guerra08.app.repository.ResourceRepository;
 import br.com.guerra08.app.service.ICollaboratorService;
 import br.com.guerra08.app.service.IReservationService;
 import br.com.guerra08.app.service.IResourceService;
@@ -14,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -57,11 +53,8 @@ public class ReservationController {
 
     @DeleteMapping("/delete-reservation/{id}")
     public ResponseEntity<String> deleteReservation(@PathVariable("id") Reservation res){
-        if(res.isFuture()){
-            if(reservationService.deleteReservation(res)){
-                return ResponseEntity.ok("Deleted");
-            }
-            return ResponseEntity.notFound().build();
+        if(reservationService.deleteReservation(res)){
+            return ResponseEntity.ok("Deleted");
         }
         return ResponseEntity.badRequest().body("Invalid reservation");
     }
