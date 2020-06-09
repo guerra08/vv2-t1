@@ -538,7 +538,7 @@
     }]
   }, {
     "id": "7dbbe479-8877-47e5-8351-ec6ac777234e",
-    "name": "assertModalInputM²",
+    "name": "assertInvalidModalInputM²",
     "commands": [{
       "id": "bbde6642-cbf5-489e-9f0e-bd808dac45e1",
       "comment": "",
@@ -640,7 +640,7 @@
     }]
   }, {
     "id": "b7c95bf9-da58-44a3-80c6-e0ed22501c94",
-    "name": "assertInvalidModalInputM²",
+    "name": "assertModalInputM²",
     "commands": [{
       "id": "e9ef5698-62a4-4d3c-8ebe-87179247108c",
       "comment": "",
