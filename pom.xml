@@ -6,6 +6,12 @@
     <groupId>br.com.guerra08.app</groupId>
     <artifactId>vv2-t1</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <sonar.projectKey>guerra08_vv2-t1</sonar.projectKey>
+        <sonar.organization>guerra08</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.login>89a2ebb11c43b9dadcf43c0c29eef2cf8854df8e</sonar.login>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
